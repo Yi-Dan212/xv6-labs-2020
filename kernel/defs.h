@@ -178,6 +178,11 @@ uint64          walkaddr(pagetable_t, uint64);
 int             copyout(pagetable_t, uint64, char *, uint64);
 int             copyin(pagetable_t, char *, uint64, uint64);
 int             copyinstr(pagetable_t, char *, uint64, uint64);
+void            vmprint(pagetable_t);
+void            uvmmap(pagetable_t pagetable, uint64 va, uint64 pa, uint64 sz, int perm);
+pagetable_t     proc_kpt_init();
+void            proc_inithart(pagetable_t kpt);
+void            u2kvmcopy(pagetable_t pagetable, pagetable_t kernelpt, uint64 oldsz, uint64 newsz);
 
 // plic.c
 void            plicinit(void);
@@ -202,6 +207,9 @@ void            statsinc(void);
 // sprintf.c
 int             snprintf(char*, int, char*, ...);
 
+//vmcopyin.c
+int             copyinstr_new(pagetable_t pagetable, char *dst, uint64 srcva, uint64 max);
+int             copyin_new(pagetable_t pagetable, char *dst, uint64 srcva, uint64 len);
 #ifdef LAB_NET
 // pci.c
 void            pci_init();
